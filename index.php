@@ -36,6 +36,7 @@
 		  $_SESSION['sql_query'] = $sql;
 		  $_SESSION['count'] = $count;
 		  $_SESSION['query_result'] = $query_result;
+		  $_SESSION['shopping_cart'] = array();
           header("location: welcome.php");
 	  }
 	  else{
