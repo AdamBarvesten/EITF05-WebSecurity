@@ -101,9 +101,15 @@
 		
 		<form method="POST">
 			<div style="font-size: 20px;margin: 10px;color: white;">Login</div>
+			<div>
+				<label for="username">Username:</label>
+				<input id="text" type="text" name="username"><br><br>
+			</div>
 
-			<input id="text" type="text" name="username"><br><br>
-			<input id="text" type="password" name="password"><br><br>
+			<div>
+				<label for="password">Password:</label>
+				<input id="text" type="password" name="password"><br><br>
+			</div>
 
 			<input id="button" type="submit" value="Login"><br><br>
 

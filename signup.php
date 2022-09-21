@@ -8,7 +8,8 @@ session_start();
 		//something was posted
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-        $query = "INSERT INTO admin (username,password) VALUES ('$username','$password')";
+		$homeadress = $_POST['homeadress'];
+        $query = "INSERT INTO admin (username,password,adress) VALUES ('$username','$password', '$homeadress')";
         $result = mysqli_query($con, $query);
         if ( false===$result ) {
             printf("error: %s\n", mysqli_error($con));
@@ -64,8 +65,22 @@ session_start();
 		<form method="post">
 			<div style="font-size: 20px;margin: 10px;color: white;">Signup</div>
 
-			<input id="text" type="text" name="username"><br><br>
-			<input id="text" type="password" name="password"><br><br>
+			<div>
+				<label for="username">Username:</label>
+				<input id="text" type="text" name="username"><br><br>
+			</div>
+
+			<div>
+				<label for="password">Password:</label>
+				<input id="text" type="password" name="password"><br><br>
+			</div>
+
+			
+			<div>
+				<label for="homeadress">Your Home Adress:</label>
+				<input id="text" type="text" name="homeadress"><br><br>
+			</div>
+
 
 			<input id="button" type="submit" value="Signup"><br><br>
 

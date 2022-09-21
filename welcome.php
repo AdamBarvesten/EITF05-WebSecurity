@@ -11,7 +11,7 @@ Date:26-03-2019
    </head>
    <body>
       <h1>Welcome <?php echo $login_session; ?></h1>
-      <h2><a href = "logout.php">Sign Out</a></h2>
+      
 		  <?php
 		  $rows;
 	   		/*Displaying sql malicious query and its result for demo purpose*/
@@ -25,7 +25,9 @@ Date:26-03-2019
 		 for($i=0;$i<count($rows);$i++)
 		  {	 print_r($rows[$i]);
 			 echo("<br/>");
-		  }
-		  ?>
-	</body>
+		  }?>
+
+		  <h2><a href = "logout.php">Sign Out</a></h2>
+
+			
 </html>
