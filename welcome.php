@@ -106,7 +106,7 @@ Date:26-03-2019
 							<div  id="box">
 								<img src = "<?php echo $row["image_ref"];?>" width = 300px height=300px/>
 								<h4><?php echo $row["name"]?></h4>
-								<h4><?php echo $row["price"]?></h4>
+								<h4>$ <?php echo $row["price"]?></h4>
 								<input type = "text" name = "quantity" value = "1"/>
 								<input type = "hidden" name = "hidden_name" value = "<?php echo $row["name"]?>"/>
 								<input type = "hidden" name = "hidden_price" value = "<?php echo $row["price"]?>"/>
