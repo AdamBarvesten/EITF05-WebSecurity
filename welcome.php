@@ -12,16 +12,11 @@
 					'product_quantity' => $_POST["quantity"]
 				);
 				$_SESSION["shopping_cart"][$nr_products_in_cart] = $product_array;
-			}else {
-				$search_id = $_GET["id"];
-				foreach($_SESSION["shopping_cart"] as $key => $val){
-					if($val["product_id"] ==  $search_id){
-						$val['product_quantity'] = $val['product_quantity'] + $_POST["quantity"];
-						break;
-					}
-				}
+			}else{
+					echo '<script>alert("Item Already Added")</script>';  
+                	echo '<script>window.location="welcome.php"</script>'; 
 			}
-		} else {
+		}else{
 			$product_array = array(
 				'product_id' => $_GET["id"],
 				'product_name' => $_POST["hidden_name"],
@@ -31,6 +26,19 @@
 			$_SESSION["shopping_cart"][0] = $product_array;
 		}
    }
+
+   if(isset($_GET['action'])){
+	   if($_GET["action"] == "delete"){
+		   foreach($_SESSION["shopping_cart"] as $keys => $values){
+				if($values["product_id"] == $_GET["id"]){
+					unset($_SESSION["shopping_cart"][$keys]);
+					echo '<script>alert("Item Removed")</script>';
+					echo '<script>window.location="welcome.php"</script>'; 
+				}
+		   }
+	   }
+   }
+
 ?>
 <html>
 
@@ -105,8 +113,6 @@ Date:26-03-2019
 								<input type = "submit" name = "add_to_cart" value = "Add to cart"/>
 							</div>
 						</form>
-					
-		
 		<?php
 				}
 			}
@@ -128,24 +134,24 @@ Date:26-03-2019
 						foreach($_SESSION["shopping_cart"] as $key => $val){
 							?>
 							<tr>
-								<td><?php echo $val["product_name"];?></td>
-								<td><?php echo $val["product_quantity"];?></td>
-								<td>$ <?php echo $val["product_price"];?></td>
-								<td><?php echo number_format($val["product_quantity"] *$val["product_price"], 2);?></td>
-								<td><a href="welcome.php?action=delete&id=<?php echo $val["product_id"]?>"></td>
+								<td align="center"><?php echo $val["product_name"];?></td>
+								<td align="center"><?php echo $val["product_quantity"];?></td>
+								<td align="center">$ <?php echo $val["product_price"];?></td>
+								<td align="center">$ <?php echo number_format($val["product_quantity"] *$val["product_price"], 2);?></td>
+								<td align="center"><a href="welcome.php?action=delete&id=<?php echo $val["product_id"];?>"><span class="text-danger">Remove</span></a></td>
 							</tr>
-							<?php
-								$total_price = $total_price + $val["product_quantity"] *$val["product_price"]
-							?>
-							<tr>
-								<td colspan="3" align="right">Total price</td>
-								<td align="right">$ <?php echo number_format($total_price,2)?></td>
-								<td></td>
-							</tr>
-							<?php
+						<?php
+							$total_price = $total_price + $val["product_quantity"] * $val["product_price"]
+						?>
 
+							<?php
 						}
-
+						?>
+					<tr>
+						<td colspan="3" align="right">Total price</td>
+						<td align="right">$ <?php echo number_format($total_price,2)?></td> 
+						<td></td>
+					</tr><?php
 					}
 				?>
 			</table>

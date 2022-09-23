@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: localhost
--- Tid vid skapande: 23 sep 2022 kl 15:21
+-- Tid vid skapande: 23 sep 2022 kl 17:58
 -- Serverversion: 10.4.24-MariaDB
 -- PHP-version: 8.1.6
 
@@ -63,7 +63,8 @@ CREATE TABLE `tbl_products` (
 --
 
 INSERT INTO `tbl_products` (`name`, `image_ref`, `price`, `id`) VALUES
-('rose', '/img/rose.jpeg', 500, 1);
+('rose', '/EITF05-WebSecurity/img/rose.jpeg', 500, 1),
+('tulip', '/EITF05-WebSecurity/img/tulip.webp', 1000, 3);
 
 -- --------------------------------------------------------
 
@@ -126,7 +127,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT för tabell `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT för tabell `users`
