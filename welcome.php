@@ -150,8 +150,11 @@ Date:26-03-2019
 					<tr>
 						<td colspan="3" align="right">Total price</td>
 						<td align="right">$ <?php echo number_format($total_price,2)?></td> 
-						<td></td>
+						<td><a href="receipt.php"><button>Checkout and pay</button></a></td>
+
+
 					</tr><?php
+					
 					}
 				?>
 			</table>
@@ -160,3 +163,4 @@ Date:26-03-2019
 
 			
 </html>
+ 
