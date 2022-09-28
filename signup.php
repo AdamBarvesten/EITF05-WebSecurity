@@ -7,9 +7,10 @@ session_start();
 	if($_SERVER['REQUEST_METHOD'] == "POST"){
 		//something was posted
 		$username = $_POST['username'];
-		$password = $_POST['password'];
+		$password =$_POST['password'];
+		$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 		$homeadress = $_POST['homeadress'];
-        $query = "INSERT INTO admin (username,password,adress) VALUES ('$username','$password', '$homeadress')";
+        $query = "INSERT INTO admin (username,password,adress) VALUES ('$username','$hashed_password', '$homeadress')";
         $result = mysqli_query($con, $query);
         if ( false===$result ) {
             printf("error: %s\n", mysqli_error($con));

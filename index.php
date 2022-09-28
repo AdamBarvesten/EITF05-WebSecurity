@@ -5,27 +5,23 @@
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       $myusername = mysqli_real_escape_string($con,$_POST['username']);
       $mypassword = mysqli_real_escape_string($con,$_POST['password']);
-      $sql = "SELECT * FROM admin WHERE username = '$myusername' and password = '$mypassword'";
+      $sql = "SELECT * FROM admin WHERE username = '$myusername'";
       $sql= str_replace("\'","'",$sql);		/*to escape blanks and spaces from input*/
       $result = mysqli_query($con,$sql);		
       $count = mysqli_num_rows($result);
       $username_find_flag=false;
       $password_correct_flag=false;
       $query_result=array();
-      while( $rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
-      {
-				  foreach($rows as $row)
-			  {		
-					   $query_result[]=$row;
-					if(strcmp($row,$myusername))
-					  {
+      while($rows = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+				foreach($rows as $row){		
+					$query_result[]=$row;
+					if(strcmp($row,$myusername)){
 					  $username_find_flag=true;
-					  }
-					  if(strcmp($row,$mypassword))
-					  {
+					}
+					if(password_verify($mypassword,$row)){
 					  $password_correct_flag=true;
 					  }
-			  }
+			  	}	
 			
 	  }
 
@@ -38,9 +34,9 @@
 		  $_SESSION['query_result'] = $query_result;
 		  $_SESSION['shopping_cart'] = array();
           header("location: welcome.php");
-	  }
-	  else{
-		echo "wrong username or password!";
+	  }else{
+			echo "wrong username or password!";
+		//echo "$mypassword"
 		  }
 
 

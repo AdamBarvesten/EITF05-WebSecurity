@@ -1,6 +1,7 @@
 <?php
    include('session.php');
    if (isset($_POST["add_to_cart"])){
+		echo isset($_SESSION["shopping_cart"]);
 		if(isset($_SESSION["shopping_cart"])){
 			$all_products_in_cart = array_column($_SESSION["shopping_cart"], "product_id");
 			if(!in_array($_GET["id"], $all_products_in_cart)){
@@ -25,6 +26,7 @@
 			);
 			$_SESSION["shopping_cart"][0] = $product_array;
 		}
+		echo var_dump($_SESSION["shopping_cart"]);
    }
 
    if(isset($_GET['action'])){
@@ -32,6 +34,7 @@
 		   foreach($_SESSION["shopping_cart"] as $keys => $values){
 				if($values["product_id"] == $_GET["id"]){
 					unset($_SESSION["shopping_cart"][$keys]);
+					$_SESSION["shopping_cart"] = array_values($_SESSION["shopping_cart"]);
 					echo '<script>alert("Item Removed")</script>';
 					echo '<script>window.location="welcome.php"</script>'; 
 				}
@@ -41,12 +44,6 @@
 
 ?>
 <html>
-
-
-<!--
-Author:Dnyaneshwar Giri
-Date:26-03-2019
--->
 
 
 <style type="text/css">
@@ -111,6 +108,7 @@ Date:26-03-2019
 								<input type = "hidden" name = "hidden_name" value = "<?php echo $row["name"]?>"/>
 								<input type = "hidden" name = "hidden_price" value = "<?php echo $row["price"]?>"/>
 								<input type = "submit" name = "add_to_cart" value = "Add to cart"/>
+								
 							</div>
 						</form>
 		<?php

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: localhost
--- Tid vid skapande: 23 sep 2022 kl 17:58
+-- Tid vid skapande: 28 sep 2022 kl 15:17
 -- Serverversion: 10.4.24-MariaDB
 -- PHP-version: 8.1.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `adress` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -39,11 +39,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `adress`) VALUES
-(3, 'tja', 'tja', ''),
-(4, 'yo', '123', ''),
-(5, 'weee', 'no', ''),
-(6, 'marcus', 'hedebark', 'stora södergatan 16'),
-(7, 'm', 'h', 's16');
+(8, 'marcus_hedebark', '$2y$10$x6/7r2BchIyydH61An1SyuVJIiKAjPo3cxGbu42M/IadOGgNXo/MS', 's16'),
+(9, 'm', '$2y$10$Dj7h8l0FcMwD/8hMiSi49em0TGQev0JuoPxY69F1gy5bJoIvkFCGK', '16');
 
 -- --------------------------------------------------------
 
@@ -121,7 +118,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT för tabell `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_products`
