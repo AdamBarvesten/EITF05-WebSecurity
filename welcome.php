@@ -1,7 +1,23 @@
 <?php
    include('session.php');
+	// for SQL Injection
+   /*$rows;
+   //Displaying sql malicious query and its result for demo purpose
+	echo('SQL Query  - '.$_SESSION['sql_query'].'</br>');
+	echo('Number of records is '.$_SESSION['count'].'</br>');
+	if(isset($_SESSION['query_result'])){
+	$rows = $_SESSION['query_result'];
+	var_dump($_SESSION);
+	echo("<br/>");	
+	}
+
+	for($i=0;$i<count($rows);$i++){	 
+		print_r($rows[$i]);
+		echo("<br/>");
+	}*/
+
+	var_dump($_SESSION);
    if (isset($_POST["add_to_cart"])){
-		echo isset($_SESSION["shopping_cart"]);
 		if(isset($_SESSION["shopping_cart"])){
 			$all_products_in_cart = array_column($_SESSION["shopping_cart"], "product_id");
 			if(!in_array($_GET["id"], $all_products_in_cart)){
@@ -26,7 +42,6 @@
 			);
 			$_SESSION["shopping_cart"][0] = $product_array;
 		}
-		echo var_dump($_SESSION["shopping_cart"]);
    }
 
    if(isset($_GET['action'])){
@@ -90,7 +105,7 @@
       <title>Welcome </title>
    </head>
    <body>
-      <h1>Welcome <?php echo $login_session; ?></h1>
+      <h1>Welcome <?php echo $login_session; ?></h1> 
 	  	<div id = "wrapper">
 		  <?php
 		  	$product_query = "SELECT * FROM tbl_products ORDER BY id ASC"; 
@@ -104,6 +119,7 @@
 								<img src = "<?php echo $row["image_ref"];?>" width = 300px height=300px/>
 								<h4><?php echo $row["name"]?></h4>
 								<h4>$ <?php echo $row["price"]?></h4>
+								<h4><a href="<?php echo $row["info"]?>">More info</a></h4>
 								<input type = "text" name = "quantity" value = "1"/>
 								<input type = "hidden" name = "hidden_name" value = "<?php echo $row["name"]?>"/>
 								<input type = "hidden" name = "hidden_price" value = "<?php echo $row["price"]?>"/>

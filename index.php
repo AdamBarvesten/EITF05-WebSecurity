@@ -1,43 +1,45 @@
 <?php
    include("connection.php");	/*connection to database*/
    session_start(); 		/*to store valid username into session instance*/
-
+	/* SQL Injection works if
+	Username input = "valid username"' or '1'='1
+	Password input = "valid password"
+	*/
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-      $myusername = mysqli_real_escape_string($con,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($con,$_POST['password']);
-      $sql = "SELECT * FROM admin WHERE username = '$myusername'";
-      $sql= str_replace("\'","'",$sql);		/*to escape blanks and spaces from input*/
-      $result = mysqli_query($con,$sql);		
-      $count = mysqli_num_rows($result);
-      $username_find_flag=false;
-      $password_correct_flag=false;
-      $query_result=array();
-      while($rows = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-				foreach($rows as $row){		
-					$query_result[]=$row;
-					if(strcmp($row,$myusername)){
-					  $username_find_flag=true;
-					}
-					if(password_verify($mypassword,$row)){
-					  $password_correct_flag=true;
-					  }
-			  	}	
-			
-	  }
+		$myusername = mysqli_real_escape_string($con,$_POST['username']);
+		$mypassword = mysqli_real_escape_string($con,$_POST['password']);
+		$sql = "SELECT * FROM admin WHERE username = '$myusername'";
+		$sql= str_replace("\'","'",$sql);		//to escape blanks and spaces from input
+		$result = mysqli_query($con,$sql);		
+		$count = mysqli_num_rows($result);
+		$username_find_flag=false;
+		$password_correct_flag=false;
+		$query_result=array();
+		while($rows = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+					foreach($rows as $row){		
+						$query_result[]=$row;
+						if(strcmp($row,$myusername)){
+						$username_find_flag=true;
+						}
+						if(password_verify($mypassword,$row)){
+						$password_correct_flag=true;
+						}
+					}	
+				
+		}
 
 
-      if($username_find_flag and $password_correct_flag)
-      {
-		  $_SESSION['login_user'] = $myusername;
-		  $_SESSION['sql_query'] = $sql;
-		  $_SESSION['count'] = $count;
-		  $_SESSION['query_result'] = $query_result;
-		  $_SESSION['shopping_cart'] = array();
-          header("location: welcome.php");
-	  }else{
-			echo "wrong username or password!";
-		//echo "$mypassword"
-		  }
+		if($username_find_flag and $password_correct_flag)
+		{
+			$_SESSION['login_user'] = $myusername;
+			$_SESSION['sql_query'] = $sql;
+			$_SESSION['count'] = $count;
+			$_SESSION['query_result'] = $query_result;
+			$_SESSION['shopping_cart'] = array();
+			header("location: welcome.php");
+		}else{
+				echo "wrong username or password!";
+			}
 
 
 
