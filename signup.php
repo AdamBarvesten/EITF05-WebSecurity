@@ -10,8 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$password = $_POST['password'];
 	$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 	$homeadress = $_POST['homeadress'];
-	$query = "INSERT INTO admin (username,password,adress) VALUES ('$username','$hashed_password', '$homeadress')";
-	$result = mysqli_query($con, $query);
 
 	$filename = 'blacklist.tex';
 	$lines  = file($filename);
