@@ -132,7 +132,10 @@
 
 								<td>
 									Delivery adress: <br />
-                                    <?php echo $adress_session; ?><br /> 
+									<!--When address is set as <script>...</script> here it will cause XSS -->
+                                    <!-- <#?php echo $adress_session; ?> <br /> -->
+									<!-- FIX THIS with the by replacing the above code with this -->
+									<?php echo $adress_session; ?><br /> 
 								</td>
 							</tr>
 						</table>

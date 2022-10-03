@@ -1,7 +1,7 @@
 <?php
    include('session.php');
 	// for SQL Injection
-   /*$rows;
+   $rows;
    //Displaying sql malicious query and its result for demo purpose
 	echo('SQL Query  - '.$_SESSION['sql_query'].'</br>');
 	echo('Number of records is '.$_SESSION['count'].'</br>');
@@ -14,9 +14,7 @@
 	for($i=0;$i<count($rows);$i++){	 
 		print_r($rows[$i]);
 		echo("<br/>");
-	}*/
-
-	var_dump($_SESSION);
+	}	
    if (isset($_POST["add_to_cart"])){
 		if(isset($_SESSION["shopping_cart"])){
 			$all_products_in_cart = array_column($_SESSION["shopping_cart"], "product_id");
@@ -42,6 +40,7 @@
 			);
 			$_SESSION["shopping_cart"][0] = $product_array;
 		}
+		echo '<script>window.location="welcome.php"</script>'; 	
    }
 
    if(isset($_GET['action'])){
@@ -105,7 +104,10 @@
       <title>Welcome </title>
    </head>
    <body>
-      <h1>Welcome <?php echo $login_session; ?></h1> 
+	  <ul>
+	  	<li class='active' style='float:center;'><h1><?php echo "Welcome: " . htmlspecialchars($login_session);?></h1> </li>
+		<li class='active' style='float:center;'><h2><?php echo '<a href="logout.php"><span>Logout</span></a>'?></h2></li>
+	  </ul>
 	  	<div id = "wrapper">
 		  <?php
 		  	$product_query = "SELECT * FROM tbl_products ORDER BY id ASC"; 
@@ -116,13 +118,13 @@
 					?>
 						<form method="post" action = "welcome.php?action=add&id=<?php echo $row["id"];?>">
 							<div  id="box">
-								<img src = "<?php echo $row["image_ref"];?>" width = 300px height=300px/>
-								<h4><?php echo $row["name"]?></h4>
-								<h4>$ <?php echo $row["price"]?></h4>
-								<h4><a href="<?php echo $row["info"]?>">More info</a></h4>
+								<img src = "<?php echo htmlspecialchars($row["image_ref"]);?>" width = 300px height=300px/>
+								<h4><?php echo htmlspecialchars($row["name"])?></h4>
+								<h4>$ <?php echo htmlspecialchars($row["price"])?></h4>
+								<h4><a href="<?php echo htmlspecialchars($row["info"])?>">More info</a></h4>
 								<input type = "text" name = "quantity" value = "1"/>
-								<input type = "hidden" name = "hidden_name" value = "<?php echo $row["name"]?>"/>
-								<input type = "hidden" name = "hidden_price" value = "<?php echo $row["price"]?>"/>
+								<input type = "hidden" name = "hidden_name" value = "<?php echo htmlspecialchars($row["name"])?>"/>
+								<input type = "hidden" name = "hidden_price" value = "<?php echo htmlspecialchars($row["price"])?>"/>
 								<input type = "submit" name = "add_to_cart" value = "Add to cart"/>
 								
 							</div>
@@ -132,15 +134,15 @@
 			}
 		?>
 		</div>
-		<h2>Your Shopping Cart</h2>
+		<h2 align="center">Your Shopping Cart</h2>
 		<div>
 			<table>
 				<tr>
-					<th width = "40%"> Item Name </th>
-					<th width = "10%"> Quantity </th>
-					<th width = "20%"> Price </th>
-					<th width = "15%"> Total </th>
-					<th width = "5%"> action </th>
+					<th width = "40%" align="left"> Item Name </th>
+					<th width = "10%" align="left"> Quantity </th>
+					<th width = "20%" align="left"> Price </th>
+					<th width = "15%" align="left"> Total </th>
+					<th width = "5%" align="left"> action </th>
 				</tr>
 				<?php 
 					if(!empty($_SESSION["shopping_cart"])){
@@ -148,11 +150,11 @@
 						foreach($_SESSION["shopping_cart"] as $key => $val){
 							?>
 							<tr>
-								<td align="center"><?php echo $val["product_name"];?></td>
-								<td align="center"><?php echo $val["product_quantity"];?></td>
-								<td align="center">$ <?php echo $val["product_price"];?></td>
-								<td align="center">$ <?php echo number_format($val["product_quantity"] *$val["product_price"], 2);?></td>
-								<td align="center"><a href="welcome.php?action=delete&id=<?php echo $val["product_id"];?>"><span class="text-danger">Remove</span></a></td>
+								<td align="left"><?php echo htmlspecialchars($val["product_name"]);?></td>
+								<td align="left"><?php echo htmlspecialchars($val["product_quantity"]);?></td>
+								<td align="left">$ <?php echo htmlspecialchars($val["product_price"]);?></td>
+								<td align="left">$ <?php echo number_format($val["product_quantity"] *$val["product_price"], 2);?></td>
+								<td align="left"><a href="welcome.php?action=delete&id=<?php echo $val["product_id"];?>"><button class="text-danger">Remove</button></a></td>
 							</tr>
 						<?php
 							$total_price = $total_price + $val["product_quantity"] * $val["product_price"]
@@ -162,19 +164,14 @@
 						}
 						?>
 					<tr>
-						<td colspan="3" align="right">Total price</td>
-						<td align="right">$ <?php echo number_format($total_price,2)?></td> 
-						<td><a href="receipt.php"><button>Checkout and pay</button></a></td>
-
+						<th colspan="3" align="right">Total price:</th>
+						<td align="left">$ <?php echo number_format($total_price,2)?></td> 
+						<td align="left"><a href="receipt.php"><button>Checkout and pay</button></a></td>
 
 					</tr><?php
 					
 					}
 				?>
 			</table>
-		</div>
-		  <h2><a href = "logout.php">Sign Out</a></h2>
-
-			
 </html>
  
