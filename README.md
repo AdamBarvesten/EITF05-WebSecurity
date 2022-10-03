@@ -18,5 +18,5 @@
   SSLCertificateKeyFile "htdocs/EITF05-WebSecurity/cert/server.key"
 </VirtualHost>
 
-2. I httpd-ssl.conf se till att "Listen 443" och att allt under "## SSL Virtual Host Context" är radderat
+2. I httpd-ssl.conf se till att "Listen 443" inte är bort kommenterat och att allt under "## SSL Virtual Host Context" är radderat
 3. Annars har Marcus fått det att funka så man kan köra på hans dator
