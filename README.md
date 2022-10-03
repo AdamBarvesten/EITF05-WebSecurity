@@ -20,3 +20,14 @@
 
 2. I httpd-ssl.conf se till att "Listen 443" inte är bort kommenterat och att allt under "## SSL Virtual Host Context" är radderat
 3. Annars har Marcus fått det att funka så man kan köra på hans dator
+
+# För att gör SQL injection
+1. Skapa en profil
+2. logga in med följande uttryck Username = Ditt användarnam' or '1'='1
+3. Skriv in ditt lösenord
+4. SQL skickar nu tillbaka all inloggnings info 
+
+# För XSS attack
+1. Skapa en profil
+2. Fyll i normalt i username och password medans på address slår ni in "<script>location.href="https://google.com"</script>"
+3. När du loggar in och genomför ett köp kommer nu när då ska gå till kvittot en XSS attack att ske
