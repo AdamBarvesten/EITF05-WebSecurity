@@ -9,10 +9,10 @@
    //$_SESSION['cooldown_timer'] = 0; 
 
    //Double checks that we only get one user from the sql query
-   if(empty($login_session)){
+   /*if(empty($login_session)){
       echo '<script>alert("Unvalid username input")</script>';
 		echo '<script>window.location="index.php"</script>'; 
-   }
+   }*/
    if(!isset($_SESSION['login_user'])){
       header("location:index.php");
       die();

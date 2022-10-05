@@ -12,63 +12,65 @@
 			unset($_SESSION['cooldown_timer']);
 		}
 	}
+  if($_SERVER["REQUEST_METHOD"] == "POST") {
+		
 
-
-	if($_SERVER["REQUEST_METHOD"] == "POST") {
-			$myusername = mysqli_real_escape_string($con,$_POST['username']);
-			$mypassword = mysqli_real_escape_string($con,$_POST['password']);
-			$sql = "SELECT * FROM admin WHERE username = '$myusername'";
-			$sql= str_replace("\'","'",$sql);		//to escape blanks and spaces from input
-			$result = mysqli_query($con,$sql);		
-			$count = mysqli_num_rows($result);
-			$username_find_flag=false;
-			$password_correct_flag=false;
-			$query_result=array();
-			while($rows = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-						foreach($rows as $row){		
-							$query_result[]=$row;
-							if(strcmp($row,$myusername)){
-							$username_find_flag=true;
-							}
-							if(password_verify($mypassword,$row)){
-							$password_correct_flag=true;
-							}
-						}	
-					
-			}
-
-
-			if($username_find_flag and $password_correct_flag)
-			{
-				$_SESSION['login_user'] = $myusername;
-				$_SESSION['sql_query'] = $sql;
-				$_SESSION['count'] = $count;
-				$_SESSION['query_result'] = $query_result;
-				$_SESSION['shopping_cart'] = array();
-				$_SESSION['cooldown_timer'] = 0;
-				header("location: welcome.php");
-			}else{
-				$_SESSION['cooldown_timer'] += 1;
-				echo '<script>alert("Wrong username or password!")</script>'; 
-				
-			}
-
-
-
-		// sql injection proof code
-
-		/* if($count == 1) {
-			//session_register("myusername");
-			$_SESSION['login_user'] = $myusername;
-
-			header("location: welcome.php");
-		}else {
-			$error = "Your Login Name or Password is invalid";
-		}*/
-
-
-
+		$myusername = mysqli_real_escape_string($con,$_POST['username']);
+		$mypassword = mysqli_real_escape_string($con,$_POST['password']);
+		$sql = "SELECT * FROM admin WHERE username = '$myusername'";
+		$sql= str_replace("\'","'",$sql);		//to escape blanks and spaces from input
+		$result = mysqli_query($con,$sql);		
+		$count = mysqli_num_rows($result);
+		$username_find_flag=false;
+		$password_correct_flag=false;
+		$query_result=array();
+		while($rows = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+					foreach($rows as $row){		
+						$query_result[]=$row;
+						if(strcmp($row,$myusername)){
+						$username_find_flag=true;
+						}
+						if(password_verify($mypassword,$row)){
+						$password_correct_flag=true;
+						}
+					}
+		}
 	}
+
+
+		if($username_find_flag and $password_correct_flag)
+		{
+			$_SESSION['login_user'] = $myusername;
+			//$_SESSION['sql_query'] = $sql; //Just for display
+			//$_SESSION['count'] = $count; //Just for display
+			//$_SESSION['query_result'] = $query_result; //Just for display
+			$_SESSION['shopping_cart'] = array();
+			$_SESSION['cooldown_timer'] = 0;
+			header("location: welcome.php");
+		}else{
+			$_SESSION['cooldown_timer'] += 1;
+			echo '<script>alert("Wrong username or password!")</script>'; 
+			}
+
+
+      // sql injection proof code
+/*
+      if($count == 1) {
+         $_SESSION['login_user'] = $myusername;
+			//$_SESSION['sql_query'] = $sql; //Just for display
+			//$_SESSION['count'] = $count; //Just for display
+			//$_SESSION['query_result'] = $query_result; //Just for display
+		 $_SESSION['shopping_cart'] = array();
+		 header("location: welcome.php");
+      }else {
+		echo "wrong username or password!";
+      }
+
+*/
+
+
+
+	
 ?>
 
 <!DOCTYPE html>
