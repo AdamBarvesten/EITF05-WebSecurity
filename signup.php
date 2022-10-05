@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$password_error = "You must enter a password";
 	} elseif ($containsInBlacklist) {
 		$password_error = "Your password is to common";
-	} /*elseif (strlen($password) < 6) {
-		$password_error = "Your password must be at least 6 characters long";
+	} /*elseif (strlen($password) < 12) {
+		$password_error = "Your password must be at least 12 characters long";
 	} elseif (!preg_match($has_a_capital_letter, $password)) {
 		$password_error = "Your password must have at least 1 capital letter";
 	} elseif (!preg_match($has_a_digit, $password)) {
@@ -45,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			printf("error: %s\n", mysqli_error($con));
 		} else {
 			echo 'done.';
-			header("Location: index.php");
-			die;
 		}
+		header("Location: index.php");
+		die;
 	}
 	echo $password_error;
 }

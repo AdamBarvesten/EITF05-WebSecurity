@@ -12,8 +12,6 @@
 			unset($_SESSION['cooldown_timer']);
 		}
 	}
-
-
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 			$myusername = mysqli_real_escape_string($con,$_POST['username']);
 			$mypassword = mysqli_real_escape_string($con,$_POST['password']);
@@ -33,17 +31,16 @@
 							if(password_verify($mypassword,$row)){
 							$password_correct_flag=true;
 							}
-						}	
-					
+						}
 			}
+		}
 
-
-			if($username_find_flag and $password_correct_flag)
+		if($username_find_flag and $password_correct_flag)
 			{
 				$_SESSION['login_user'] = $myusername;
-				$_SESSION['sql_query'] = $sql;
-				$_SESSION['count'] = $count;
-				$_SESSION['query_result'] = $query_result;
+				//$_SESSION['sql_query'] = $sql; //Just for display
+				//$_SESSION['count'] = $count; //Just for display
+				//$_SESSION['query_result'] = $query_result; //Just for display
 				$_SESSION['shopping_cart'] = array();
 				$_SESSION['cooldown_timer'] = 0;
 				header("location: welcome.php");
@@ -53,18 +50,20 @@
 				
 			}
 
+      // sql injection proof code
+/*
+      if($count == 1) {
+         $_SESSION['login_user'] = $myusername;
+			//$_SESSION['sql_query'] = $sql; //Just for display
+			//$_SESSION['count'] = $count; //Just for display
+			//$_SESSION['query_result'] = $query_result; //Just for display
+		 $_SESSION['shopping_cart'] = array();
+		 header("location: welcome.php");
+      }else {
+		echo "wrong username or password!";
+      }
 
-
-		// sql injection proof code
-
-		/* if($count == 1) {
-			//session_register("myusername");
-			$_SESSION['login_user'] = $myusername;
-
-			header("location: welcome.php");
-		}else {
-			$error = "Your Login Name or Password is invalid";
-		}*/
+*/
 
 
 

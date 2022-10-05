@@ -1,7 +1,7 @@
 <?php
    include('session.php');
 	// for SQL Injection
-   $rows;
+   /*$rows;
    //Displaying sql malicious query and its result for demo purpose
 	echo('SQL Query  - '.$_SESSION['sql_query'].'</br>');
 	echo('Number of records is '.$_SESSION['count'].'</br>');
@@ -14,7 +14,7 @@
 	for($i=0;$i<count($rows);$i++){	 
 		print_r($rows[$i]);
 		echo("<br/>");
-	}	
+	}*/	
    if (isset($_POST["add_to_cart"])){
 		if(isset($_SESSION["shopping_cart"])){
 			$all_products_in_cart = array_column($_SESSION["shopping_cart"], "product_id");
