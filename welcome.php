@@ -107,6 +107,7 @@
 	  <ul>
 	  	<li class='active' style='float:center;'><h1><?php echo "Welcome: " . htmlspecialchars($login_session);?></h1> </li>
 		<li class='active' style='float:center;'><h2><?php echo '<a href="logout.php"><span>Logout</span></a>'?></h2></li>
+		<li class='active' style='float:center;'><h2><?php echo '<a href="change_adress.php"><span>Change adress</span></a>'?></h2></li>
 	  </ul>
 	  	<div id = "wrapper">
 		  <?php
