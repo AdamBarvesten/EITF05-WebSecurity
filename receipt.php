@@ -171,6 +171,7 @@
 					<td>Total: $<?php echo $total_price?></td>
 				</tr>
 			</table>
+		<a href = "index.php"> Back to Login </a>
 		</div>
 	</body>
 </html>
