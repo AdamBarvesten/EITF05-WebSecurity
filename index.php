@@ -13,6 +13,7 @@
 		}
 	}
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
+			echo var_dump($_POST);
 			$myusername = mysqli_real_escape_string($con,$_POST['username']);
 			$mypassword = mysqli_real_escape_string($con,$_POST['password']);
 			$sql = "SELECT * FROM admin WHERE username = '$myusername'";
@@ -33,22 +34,24 @@
 							}
 						}
 			}
+	
+		if($username_find_flag and $password_correct_flag){
+			$_SESSION['login_user'] = $myusername;
+			//$_SESSION['sql_query'] = $sql; //Just for display
+			//$_SESSION['count'] = $count; //Just for display
+			//$_SESSION['query_result'] = $query_result; //Just for display
+			$_SESSION['shopping_cart'] = array();
+			$_SESSION['cooldown_timer'] = 0;
+			header("location: welcome.php");
+		}else{
+			$_SESSION['cooldown_timer'] += 1;
+			header('Location: index.php');
+			echo '<script>alert("Wrong username or password!")</script>'; 
+			return;
 		}
-
-		if($username_find_flag and $password_correct_flag)
-			{
-				$_SESSION['login_user'] = $myusername;
-				//$_SESSION['sql_query'] = $sql; //Just for display
-				//$_SESSION['count'] = $count; //Just for display
-				//$_SESSION['query_result'] = $query_result; //Just for display
-				$_SESSION['shopping_cart'] = array();
-				$_SESSION['cooldown_timer'] = 0;
-				header("location: welcome.php");
-			}else{
-				$_SESSION['cooldown_timer'] += 1;
-				echo '<script>alert("Wrong username or password!")</script>'; 
-				
-			}
+		
+		
+	}
 
       // sql injection proof code
 /*
@@ -107,28 +110,33 @@
 	</style>
 
 	<div id="box">
-		
-		<form method="POST">
+		<form action= "index.php" method="POST" autocomplete=off>
 			<div style="font-size: 20px;margin: 10px;color: white;">Login</div>
 			<div>
 				<label for="username">Username:</label>
-				<input id="text" type="text" name="username"><br><br>
+				<input id="text" type="text" name="username" required><br><br>
 			</div>
 
 			<div>
-
 				<label for="password">Password:</label>	
-				<input id="text" type="password" name="password"><br><br>
-				
+				<input id="text" type="password" name="password" required><br><br>	
 			</div>
-			<?php if($_SESSION['cooldown_timer'] > 2){
-						$_SESSION['locked'] = time();
-						echo '<p> Please wait 10 seconds since number of max tries have been reached</p>'; 
-					}else{
+		
+			<?php 
+			if($_SESSION['cooldown_timer'] > 0){
+				if($_SESSION['cooldown_timer'] > 2){
+					$_SESSION['locked'] = time();
+					echo '<p> Please wait 10 seconds since number of max tries have been reached</p>'; 
+				}else{?>
+					<input id="button" type="submit" value="Login"><br>
+					<p> Wrong password or username please try again </p><br>
+			<?php
+				}
+			}else{
 			?>
 			<input id="button" type="submit" value="Login"><br><br>
 			<?php
-					}
+			}
 				?>
 			<a href="signup.php">Click to Signup</a><br><br>
 		</form>
