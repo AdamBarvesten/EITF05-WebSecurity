@@ -8,6 +8,13 @@
    $adress_session = $row['adress'];
    $_SESSION['cooldown_timer'] = 0; 
 
+   //CSRF
+   $request_method = strtoupper($_SERVER['REQUEST_METHOD']);
+   if ($request_method === 'GET') {
+      // CSRF protection token
+      $_SESSION['CSRF_token'] = bin2hex(random_bytes(35));
+   }
+
    //Double checks that we only get one user from the sql query
    /*if(empty($login_session)){
       echo '<script>alert("Unvalid username input")</script>';
