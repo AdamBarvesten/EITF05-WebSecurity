@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <html>
 
 <head>
-	<title>Change password</title>
+	<title>Change adress</title>
 </head>
 
 <body>
