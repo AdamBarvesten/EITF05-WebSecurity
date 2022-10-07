@@ -10,6 +10,7 @@
 		if($time_diff > 10){
 			unset($_SESSION['locked']);
 			unset($_SESSION['cooldown_timer']);
+			header('Location: index.php');
 		}
 	}
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -123,7 +124,7 @@
 			</div>
 		
 			<?php 
-			if($_SESSION['cooldown_timer'] > 0){
+			if(isset($_SESSION['cooldown_timer'])){
 				if($_SESSION['cooldown_timer'] > 2){
 					$_SESSION['locked'] = time();
 					echo '<p> Please wait 10 seconds since number of max tries have been reached</p>'; 
