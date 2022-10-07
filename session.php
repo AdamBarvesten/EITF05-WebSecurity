@@ -6,7 +6,7 @@
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    $login_session = $row['username'];
    $adress_session = $row['adress'];
-   $_SESSION['cooldown_timer'] = 0; 
+   
 
    //CSRF
    $request_method = strtoupper($_SERVER['REQUEST_METHOD']);
