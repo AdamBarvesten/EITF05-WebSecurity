@@ -36,6 +36,6 @@
 1. Se till att adressen i CSRF.php (rad 6) går till change_adress.php (kan vara annan adress för mac)
 2. Kommentera bort CSRF-skyddet på rad 9 till 16 i change_adress.php
 3. Logga in med ditt konto
-4. Inspektera adressen för ditt konto i phpmyadmin 
+4. Inspektera adressen för ditt konto
 5. Klicka på länken i från e-posten eller prova denna: [Download 16GB RAM to you PC for FREE!!!](http://localhost/EITF05-WebSecurity/csrf.php).
-6. Inspektera adressen för ditt konto i phpmyadmin 
+6. Uppdatera sidan och sedan inspektera adressen för ditt konto

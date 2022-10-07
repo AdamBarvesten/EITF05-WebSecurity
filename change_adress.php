@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	
+	/*
 	if (!$token || $token !== $_SESSION['CSRF_token']) {
 		echo "<h1>405 Adress change did not succeed</h1>";		
 		echo "<strong>Your token is: </strong> <br>" . $token;
@@ -14,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
 		exit;
 	}
+	*/
 
 	$homeadress = $_POST['homeadress'];
 	if(empty($homeadress)){
