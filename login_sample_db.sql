@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: localhost
--- Tid vid skapande: 28 sep 2022 kl 15:17
+-- Tid vid skapande: 07 okt 2022 kl 13:41
 -- Serverversion: 10.4.24-MariaDB
 -- PHP-version: 8.1.6
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
-  `username` varchar(20) NOT NULL,
+  `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `adress` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -40,7 +40,8 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `username`, `password`, `adress`) VALUES
 (8, 'marcus_hedebark', '$2y$10$x6/7r2BchIyydH61An1SyuVJIiKAjPo3cxGbu42M/IadOGgNXo/MS', 's16'),
-(9, 'm', '$2y$10$Dj7h8l0FcMwD/8hMiSi49em0TGQev0JuoPxY69F1gy5bJoIvkFCGK', '16');
+(9, 'm', '$2y$10$Dj7h8l0FcMwD/8hMiSi49em0TGQev0JuoPxY69F1gy5bJoIvkFCGK', '16'),
+(12, 'Marcus_Hedebark', '$2y$10$mMSc.hXzrngpnhTWobPtCucYT9TrE6LxVqoiMKHm0UnJt6UVjhBTm', 'Stora Södergatan 16');
 
 -- --------------------------------------------------------
 
@@ -52,38 +53,17 @@ CREATE TABLE `tbl_products` (
   `name` text NOT NULL,
   `image_ref` text NOT NULL,
   `price` int(11) NOT NULL,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `info` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumpning av Data i tabell `tbl_products`
 --
 
-INSERT INTO `tbl_products` (`name`, `image_ref`, `price`, `id`) VALUES
-('rose', '/EITF05-WebSecurity/img/rose.jpeg', 500, 1),
-('tulip', '/EITF05-WebSecurity/img/tulip.webp', 1000, 3);
-
--- --------------------------------------------------------
-
---
--- Tabellstruktur `users`
---
-
-CREATE TABLE `users` (
-  `id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
-  `user_name` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumpning av Data i tabell `users`
---
-
-INSERT INTO `users` (`id`, `user_id`, `user_name`, `password`, `date`) VALUES
-(9, 322339, 'tjena', '1337', '2022-09-13 15:31:43'),
-(10, 7612, 'hej', 'hej', '2022-09-13 16:39:55');
+INSERT INTO `tbl_products` (`name`, `image_ref`, `price`, `id`, `info`) VALUES
+('rose', '/EITF05-WebSecurity/img/rose.jpeg', 500, 1, 'https://en.wikipedia.org/wiki/Rose'),
+('tulip', '/EITF05-WebSecurity/img/tulip.webp', 1000, 3, 'https://en.wikipedia.org/wiki/Tulip');
 
 --
 -- Index för dumpade tabeller
@@ -102,15 +82,6 @@ ALTER TABLE `tbl_products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index för tabell `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `date` (`date`),
-  ADD KEY `user_name` (`user_name`);
-
---
 -- AUTO_INCREMENT för dumpade tabeller
 --
 
@@ -118,19 +89,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT för tabell `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_products`
 --
 ALTER TABLE `tbl_products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT för tabell `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
